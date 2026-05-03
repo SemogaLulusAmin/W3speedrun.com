@@ -19,7 +19,7 @@ export class AuthToken implements CanActivate{
         try{    
             
             const payload = await this.jwtService.verifyAsync(token, {
-                secret: 'MOST_SECRET_2026'
+                secret: process.env.JWT_SECRET
             })
 
             req['user'] = payload;
