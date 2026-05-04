@@ -7,5 +7,6 @@ CREATE TABLE `User` (
     `country` VARCHAR(55) NOT NULL,
     `role` VARCHAR(26) NOT NULL DEFAULT 'USER',
 
+    UNIQUE INDEX `User_email_key`(`email`),
     PRIMARY KEY (`user_id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

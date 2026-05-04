@@ -6,7 +6,7 @@ import { GameCatalogService } from './game_catalog.service';
 @Controller('games')
 export class GameCatalogController {
 
-    constructor(private gameCatalogService: GameCatalogController) {}
+    constructor(private gameCatalogService: GameCatalogService) {}
 
     @Get()
     async findAll(){

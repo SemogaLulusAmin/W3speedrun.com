@@ -15,7 +15,7 @@ export class GameCatalogService {
         }
     }
 
-    async findOne(id: number){
+    async findOne(id: string){
         try{
             const game = await this.prisma.games.findUnique({
                 where: {
