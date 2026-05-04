@@ -49,8 +49,6 @@ export class AuthService {
                     }
                 })
     
-                console.log(user);
-    
                 if(!user){
                     throw new UnauthorizedException('invalid email or password');
                 }
@@ -58,7 +56,6 @@ export class AuthService {
                 const salt = 'IKAN_APA_YANG_TERINDAH'; 
                 const hashPassword = pbkdf2Sync(users.password, salt, 1000, 27, 'sha256').toString('hex');
     
-                console.log(hashPassword)
                 if(user.password !== hashPassword){
                     throw new UnauthorizedException('invalid email or password')
                 }

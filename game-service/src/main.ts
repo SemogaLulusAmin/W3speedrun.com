@@ -6,7 +6,20 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  const config = new DocumentBuilder().build();
+  const config = new DocumentBuilder().setTitle('Game Service API')
+    .setDescription('API Documentation for Game Service')
+    .setVersion('1.0')
+    .addBearerAuth( 
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT', 
+        name: 'JWT',
+        description: 'Insert Your JWT token',
+        in: 'header',
+      } 
+    )
+    .build();
 
   const document = SwaggerModule.createDocument(app, config);
 
