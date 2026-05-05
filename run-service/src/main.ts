@@ -13,7 +13,19 @@ async function bootstrap() {
     transform: true
   }));
 
-  const config = new DocumentBuilder().setTitle('Auth Service API').setDescription('API Documentation for Auth Service').setVersion('1.0').build();
+
+  const config = new DocumentBuilder().setTitle('Game Service API').setDescription('API Documentation for Game Service').setVersion('1.0')
+    .addBearerAuth( 
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT', 
+        name: 'JWT',
+        description: 'Insert Your JWT token',
+        in: 'header',
+      } 
+    )
+    .build();
 
   const document = SwaggerModule.createDocument(app, config);
 
@@ -21,7 +33,7 @@ async function bootstrap() {
 
   app.enableCors();
 
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(process.env.PORT ?? 3001);
 }
 
 console.log(`Horee, your server is up on http://localhost:${process.env.PORT}`)

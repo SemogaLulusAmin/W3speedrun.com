@@ -15,12 +15,10 @@ export class RunCategoryCatalogService {
                 }
             })
 
-            return {
-                data: runCategory
-            }
+            return runCategory;
             
         } catch(error){
-
+            throw error;
         }
     }
 
