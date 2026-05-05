@@ -2,13 +2,18 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import 'dotenv/config'
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  const config = new DocumentBuilder().setTitle('Game Service API')
-    .setDescription('API Documentation for Game Service')
-    .setVersion('1.0')
+  app.useGlobalPipes(new ValidationPipe({
+    whitelist: true, 
+    forbidNonWhitelisted: true, 
+    transform: true
+  }));
+
+  const config = new DocumentBuilder().setTitle('Game Service API').setDescription('API Documentation for Game Service').setVersion('1.0')
     .addBearerAuth( 
       {
         type: 'http',
