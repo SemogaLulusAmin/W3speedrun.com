@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { AuthToken, isAdmin } from './guard/auth.guard';
+import { AuthToken, isAdmin } from '../guard/auth.guard';
 import { CatalogInsertion } from './dto/CatalogInsertion.dto';
 import { CatalogUpdate } from './dto/CatalogUpdate.dto';
 import { RunCategoryCatalogManagementService } from './run_category_catalog_management.service';
@@ -21,7 +21,7 @@ export class RunCategoryCatalogManagementController {
     @Patch(':id/update')
     @ApiBearerAuth()
     @UseGuards(AuthToken, isAdmin)
-    async updateCatalog(@Param('id') id: string, runCatalog: CatalogUpdate){
+    async updateCatalog(@Param('id') id: string,@Body() runCatalog: CatalogUpdate){
         return this.catalogService.updateCatalog(id,runCatalog);
     }
 

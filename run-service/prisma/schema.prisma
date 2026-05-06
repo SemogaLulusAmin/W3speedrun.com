@@ -21,7 +21,7 @@ model Runs{
   submitted_at          DateTime    @default(now())
   verified_at           DateTime?    
   status                String      @db.VarChar(25)
-  comments         Comments[]
+  comments              Comments[]
 }
 
 model Comments{

@@ -19,7 +19,7 @@ export class RegisterDto {
   @IsNotEmpty()
   country: string;
 
-  @ApiProperty({ example: 'password123' })
+  @ApiProperty({ example: 'Password123@' })
   @IsString()
   @IsNotEmpty()
   @MinLength(8)

@@ -17,4 +17,5 @@ export class GameCatalogController {
     async findOne(@Param('id') id: string){
         return this.gameCatalogService.findOne(id);
     }
+    
 }

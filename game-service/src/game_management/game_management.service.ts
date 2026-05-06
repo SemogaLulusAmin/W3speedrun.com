@@ -43,7 +43,7 @@ export class GameManagementService {
 
             const updateData: any = {}
             if(game.game_name) updateData.game_name = game.game_name
-            if(game.game_description) updateData.game_description = game.game_description
+            if(game.description) updateData.description = game.description
 
             await this.prisma.games.update({
                 where: {

@@ -14,7 +14,7 @@ async function bootstrap() {
   }));
 
 
-  const config = new DocumentBuilder().setTitle('Game Service API').setDescription('API Documentation for Game Service').setVersion('1.0')
+  const config = new DocumentBuilder().setTitle('Run Service API').setDescription('API Documentation for Run Service').setVersion('1.0')
     .addBearerAuth( 
       {
         type: 'http',
@@ -33,7 +33,7 @@ async function bootstrap() {
 
   app.enableCors();
 
-  await app.listen(process.env.PORT ?? 3001);
+  await app.listen(process.env.PORT ?? 3002);
 }
 
 console.log(`Horee, your server is up on http://localhost:${process.env.PORT}`)

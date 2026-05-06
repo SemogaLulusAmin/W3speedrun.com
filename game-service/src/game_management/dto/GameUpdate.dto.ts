@@ -1,4 +1,15 @@
+import { ApiProperty } from "@nestjs/swagger"
+import { IsNotEmpty, IsOptional, IsString } from "class-validator"
+
 export class GameUpdate {
-    game_name?: string | null
-    game_description?: string | null
+
+    @ApiProperty({example: ""})
+    @IsString()
+    @IsOptional()
+    game_name?: string
+
+    @ApiProperty({example : ""})
+    @IsString()
+    @IsOptional()
+    description?: string
 }
