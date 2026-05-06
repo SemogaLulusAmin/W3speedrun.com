@@ -1,5 +1,14 @@
+import { ApiProperty } from "@nestjs/swagger"
+import { IsNotEmpty, IsOptional, IsString } from "class-validator"
 
 export class CatalogUpdate {
-    game_id?: string | null
-    run_category_name?: string | null
+
+    @ApiProperty({example: ""})
+    @IsString()
+    @IsOptional()
+    game_id?: string
+    @ApiProperty({example: "Idle"})
+    @IsString()
+    @IsOptional()
+    run_category_name?: string 
 }

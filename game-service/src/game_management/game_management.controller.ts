@@ -1,6 +1,6 @@
 import { Controller, Delete, Patch, Post, UseGuards, Body, Param } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { AuthToken, isAdmin } from './guard/auth.guard';
+import { AuthToken, isAdmin } from '../guard/auth.guard';
 import { GameInsertion } from './dto/GameInsertion.dto';
 import { GameUpdate } from './dto/GameUpdate.dto';
 import { GameManagementService } from './game_management.service';
@@ -21,7 +21,7 @@ export class GameManagementController {
     @Patch(':id/update')
     @ApiBearerAuth()
     @UseGuards(AuthToken, isAdmin)
-    async UpdateGame(@Param('id') id: string, game: GameUpdate){
+    async UpdateGame(@Param('id') id: string,@Body() game: GameUpdate){
         return this.gameService.updateGame(id,game);
     }
 

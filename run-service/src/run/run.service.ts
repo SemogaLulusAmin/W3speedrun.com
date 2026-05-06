@@ -82,7 +82,7 @@ export class RunService {
             const run_category = await axios.get(`http://localhost:3001/categories/${run?.run_category_id}`)
             const run_categories_data = run_category.data;
 
-            const runner = await axios.get(`http://localhost:3000/user/${run?.user_id}/profile`)
+            const runner = await axios.get(`http://localhost:3000/users/${run?.user_id}/profile`)
             const runner_data = runner.data;
 
             const game_req  = await axios.get(`http://localhost:3001/games/${run_categories_data.game_id}`)

@@ -46,9 +46,16 @@ export class RunCategoryCatalogManagementService {
                 }
             })
 
-            if(!searchCatalog) throw new NotFoundException('run category does not exist')
+            if(!searchCatalog) throw new NotFoundException('Run Category Not Found!')
             
-            
+            const searchGame = await this.prisma.games.findUnique({
+                where: {
+                    game_id: runCatalog.game_id
+                }
+            })
+
+            if(!searchGame) throw new NotFoundException('Game Not Found!')
+
             const updatedData : any = {}
             if(runCatalog.game_id) updatedData.game_id = runCatalog.game_id;
 

@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post, Request, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { RunService } from './run.service';
-import { AuthToken } from './guard/auth.guard';
+import { AuthToken } from '../guard/auth.guard';
 import { SubmitRun } from './dto/submit.dto';
 @ApiTags('runs')
 @Controller('runs')
@@ -21,7 +21,7 @@ export class RunController {
     @Get(':id/user')
     async findUserRun(@Param('id') id: string, @Request() req){
 
-        const userID = req.user.user_id;
+        const userID = req.user.id;
 
         return this.runService.findUserRun(id, userID);
     }
@@ -35,7 +35,9 @@ export class RunController {
     @ApiBearerAuth()
     @UseGuards(AuthToken)
     async submitRun(@Body() run: SubmitRun, @Request() req){
-        const userID = req.user.user_id;
+
+        console.log(req.user);
+        const userID = req.user.id;
 
         return this.runService.submitRun(run, userID);
     } 
