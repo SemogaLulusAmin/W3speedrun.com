@@ -50,18 +50,29 @@ export class RunService {
 
         try{
             if(id === userID){
-            return await this.prisma.runs.findMany({
+            const runs = await this.prisma.runs.findMany({
                 where: {
                     user_id: id
                 }
             })
+
+            return runs.map(run => ({
+                ...run,
+                run_duration:           run.run_duration.toString()
+            }))
+
             } else {
-                return await this.prisma.runs.findMany({
+                const runs = await this.prisma.runs.findMany({
                     where: {
                         user_id: id,
                         status: "ACCEPTED"
                     }
                 })
+
+                return runs.map(run => ({
+                    ...run,
+                    run_duration:run.run_duration.toString()
+                }))
             }
         } catch (error){
             throw error;

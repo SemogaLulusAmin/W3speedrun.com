@@ -8,13 +8,15 @@ export class CommentService {
 
     constructor(private prisma: PrismaService) {}
 
-    async postComment(comment: PostComment, userID: string){
+    async postComment(comment: PostComment, userID){
         try {
 
-            const user = await axios.get( `http://localhost:3000/user/${userID}/profile`)
+            const user = await axios.get( `http://localhost:3000/users/${comment.user_id}/profile`)
 
-            if(user.data.user_id !== userID) throw new UnauthorizedException('Do not authorized')
-            if(!user.data) throw new NotFoundException('User not found');
+            console.log(user.data.user_id)
+            console.log(userID);
+            if(!user.data || !user.data.username) throw new NotFoundException('User not found');
+            if(String(user.data.user_id).trim() !== String(userID).trim()) throw new UnauthorizedException('Not Same!')
 
             const run = await this.prisma.runs.findUnique({
                 where: {
@@ -30,7 +32,7 @@ export class CommentService {
                 data: {
                     comment_id: commentId,
                     run_id: comment.run_id,
-                    user_id: userID,
+                    user_id: comment.user_id,
                     comment: comment.comment
                 }
             })

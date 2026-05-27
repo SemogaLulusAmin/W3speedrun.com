@@ -13,8 +13,8 @@ export class UsersService {
                     user_id : id
                 }
             })
-
             return {
+                user_id: user?.user_id,
                 username: user?.username,
                 email: user?.email,
                 country: user?.country,

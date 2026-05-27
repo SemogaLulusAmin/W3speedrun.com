@@ -9,8 +9,6 @@ export class RunController {
 
     constructor(private runService: RunService) {}
 
-    @ApiBearerAuth()
-    @UseGuards(AuthToken)
     @Get(':id/category')
     async findCategories(@Param('id') id: string){
         return this.runService.findCategories(id);

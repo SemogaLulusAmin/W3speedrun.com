@@ -19,7 +19,6 @@ export class CommentController {
         return this.commentService.postComment(comment, userID);
     }
 
-
     @Delete(':id')
     @ApiBearerAuth()
     @UseGuards(AuthToken)

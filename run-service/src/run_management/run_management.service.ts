@@ -15,9 +15,10 @@ export class RunManagementService {
                 }
             })
 
-            return {
-                runs
-            }
+             return runs.map(run => ({
+                ...run,
+                run_duration:           run.run_duration.toString()
+            }))
 
         } catch (error){
             throw error;
@@ -41,7 +42,8 @@ export class RunManagementService {
                     run_id: id
                 },
                 data: {
-                    status: 'ACCEPTED'
+                    status: 'ACCEPTED',
+                    verified_at: new Date()
                 }
             })
 
@@ -70,12 +72,13 @@ export class RunManagementService {
                     run_id: id
                 },
                 data: {
-                    status: 'REJECTED'
+                    status: 'REJECTED',
+                    verified_at: new Date()
                 }
             })
 
             return {
-                message: "Successfull accept a run"
+                message: "Successfull reject a run"
             }
 
         } catch (error){
