@@ -12,11 +12,9 @@ export class CommentService {
         try {
 
             const user = await axios.get( `http://localhost:3000/users/${comment.user_id}/profile`)
-
-            console.log(user.data.user_id)
-            console.log(userID);
+            
             if(!user.data || !user.data.username) throw new NotFoundException('User not found');
-            if(String(user.data.user_id).trim() !== String(userID).trim()) throw new UnauthorizedException('Not Same!')
+            if(String(user.data.user_id).trim() !== String(userID).trim()) throw new UnauthorizedException('Not Authorized!')
 
             const run = await this.prisma.runs.findUnique({
                 where: {
