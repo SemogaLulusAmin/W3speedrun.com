@@ -31,6 +31,4 @@ export class GameManagementController {
     async DeleteGame(@Param('id') id: string){
         return this.gameService.deleteGame(id);
     }
-
-
 }

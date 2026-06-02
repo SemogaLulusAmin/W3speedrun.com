@@ -3,6 +3,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { RunService } from './run.service';
 import { AuthToken } from '../guard/auth.guard';
 import { SubmitRun } from './dto/submit.dto';
+
 @ApiTags('runs')
 @Controller('runs')
 export class RunController {
@@ -39,6 +40,5 @@ export class RunController {
 
         return this.runService.submitRun(run, userID);
     } 
-
 
 }

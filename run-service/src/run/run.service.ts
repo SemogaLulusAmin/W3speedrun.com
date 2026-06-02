@@ -9,17 +9,19 @@ export class RunService {
     constructor(private prisma: PrismaService) {}
 
     formatDate(run_duration : BigInt){
-        const totalDuration = Number(run_duration);
+        const totalSeconds = Number(run_duration);
 
-        const hours = Math.floor(totalDuration/3600);
-        const minutes = Math.floor(totalDuration/60);
-        const seconds = totalDuration % 60;
+        const hours = Math.floor(totalSeconds / 3600);
+        const remainingSecondsAfterHours = totalSeconds % 3600;
+
+        const minutes = Math.floor(remainingSecondsAfterHours / 60);
+        const seconds = remainingSecondsAfterHours % 60;
 
         const hFormat = hours > 0 ? `${hours} Hour(s) ` : "";
         const mFormat = minutes > 0 ? `${minutes} Minute(s) ` : "";
         const sFormat = seconds > 0 ? `${seconds} Second(s)` : "";
 
-        return `${hFormat}${mFormat}${sFormat}`;
+        return `${hFormat}${mFormat}${sFormat}`.trim();
     }
 
     async findCategories(id: string){
@@ -37,8 +39,7 @@ export class RunService {
 
             return runs.map(run => ({
                 ...run,
-                run_duration:           run.run_duration.toString(),
-                formatted_duration:     this.formatDate(run.run_duration)
+                run_duration: this.formatDate(run.run_duration)
             }))
         } catch (error){
             throw error;
@@ -58,7 +59,7 @@ export class RunService {
 
             return runs.map(run => ({
                 ...run,
-                run_duration:           run.run_duration.toString()
+                run_duration: this.formatDate(run.run_duration),
             }))
 
             } else {
@@ -71,7 +72,7 @@ export class RunService {
 
                 return runs.map(run => ({
                     ...run,
-                    run_duration:run.run_duration.toString()
+                    run_duration: this.formatDate(run.run_duration)
                 }))
             }
         } catch (error){
@@ -89,6 +90,9 @@ export class RunService {
                 }
             })
 
+            if (!run) {
+                throw new NotFoundException(`Run with ID ${id} not found`);
+            }
 
             const run_category = await axios.get(`http://localhost:3001/categories/${run?.run_category_id}`)
             const run_categories_data = run_category.data;
@@ -105,9 +109,10 @@ export class RunService {
                 }
             })
 
+
             return {
                 ...run, 
-                run_duration: run?.run_duration.toString(),
+                run_duration: this.formatDate(run.run_duration),
                 games: game_data,
                 runner: runner_data,
                 run_category_name : run_categories_data.run_category_name,

@@ -4,7 +4,6 @@ import { AuthToken } from '../guard/auth.guard';
 import { PostComment } from './dto/postComment.dto';
 import { CommentService } from './comment.service';
 
-
 @ApiTags('Comment')
 @Controller('comments')
 export class CommentController {
